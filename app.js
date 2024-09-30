@@ -8,8 +8,11 @@ import rateLimit from 'express-rate-limit';
 import morgan from 'morgan';
 import mongoSanitize from 'express-mongo-sanitize';
 import xss from 'xss-clean';
+import dotenv from 'dotenv';
 
 import 'colors';
+
+dotenv.config({ path: './config.env' });
 
 const app = express();
 
