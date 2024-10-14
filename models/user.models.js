@@ -1,3 +1,4 @@
+import bcrypt from 'bcryptjs';
 import mongoose from 'mongoose';
 
 const userSchema = new mongoose.Schema(
@@ -26,7 +27,7 @@ const userSchema = new mongoose.Schema(
       minLength: [8, 'Passwords cannot be less than 8 characters long'],
       select: false,
     },
-    confirmPassword: {
+    passwordConfirm: {
       type: String,
       required: [true, 'Please confirm your password'],
       validate: {
@@ -68,6 +69,13 @@ const userSchema = new mongoose.Schema(
     timestamps: true,
   },
 );
+
+userSchema.pre('save', async function (next) {
+  if (!this.isModified('password')) return next();
+
+  this.password = await bcrypt.hash(this.password, 12);
+  this.passwordConfirm = undefined;
+});
 
 const User = mongoose.models.User || mongoose.model('User', userSchema);
 
