@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import express from 'express';
 import hpp from 'hpp';
 import compression from 'compression';
@@ -11,6 +13,8 @@ import xss from 'xss-clean';
 import dotenv from 'dotenv';
 
 import 'colors';
+
+import authRoute from './routes/auth.route.js'
 
 dotenv.config({ path: './config.env' });
 
@@ -45,5 +49,7 @@ app.use(hpp());
 app.use(xss());
 
 app.use(compression);
+
+app.use('/api/v1/auth', authRoute)
 
 export default app;
