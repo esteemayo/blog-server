@@ -9,7 +9,7 @@ export const register = asyncHandler(async (req, res, next) => {
   const user = await User.create({ ...req.body });
 
   if (user) {
-    createSendToken(user, StatusCodes.CREATED, req, res);
+    return createSendToken(user, StatusCodes.CREATED, req, res);
   }
 });
 
@@ -26,5 +26,5 @@ export const login = asyncHandler(async (req, res, next) => {
     return next(new BadRequesError('Incorrect email or password'));
   }
 
-  createSendToken(user, StatusCodes.OK, req, res);
+  return createSendToken(user, StatusCodes.OK, req, res);
 });
