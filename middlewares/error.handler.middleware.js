@@ -1,5 +1,22 @@
 import { StatusCodes } from 'http-status-codes';
 
+import app from '../app.js';
+
+const sendErrorDev = (err, res) => {
+  return res.status(err.statusCode).json({
+    status: err.status,
+    message: err.message,
+    stack: err.stack,
+  });
+};
+
+const sendErrorProd = (err, res) => {
+  return res.status(err.statusCode).json({
+    status: err.status,
+    message: err.message,
+  });
+};
+
 const errorHandlerMiddleware = (err, req, res, next) => {
   const customError = {
     stack: err.stack,
@@ -8,11 +25,11 @@ const errorHandlerMiddleware = (err, req, res, next) => {
     statusCode: err.statusCode || StatusCodes.INTERNAL_SERVER_ERROR,
   };
 
-  return res.status(customError.statusCode).json({
-    status: customError.status,
-    stack: customError.stack,
-    message: customError.message,
-  });
+  if (app.get('env') === 'development') {
+    sendErrorDev(customError, res);
+  } else {
+    sendErrorProd(customError, res);
+  }
 };
 
 export default errorHandlerMiddleware;
