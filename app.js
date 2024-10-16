@@ -15,7 +15,9 @@ import dotenv from 'dotenv';
 import 'colors';
 
 import authRoute from './routes/auth.route.js';
-import errorHandlerMiddleware from './middlewares/error.handler.middleware.js'
+
+import NotFoundError from './errors/not.found.error.js';
+import errorHandlerMiddleware from './middlewares/error.handler.middleware.js';
 
 dotenv.config({ path: './config.env' });
 
@@ -52,6 +54,10 @@ app.use(xss());
 app.use(compression);
 
 app.use('/api/v1/auth', authRoute);
+
+app.all('*', (req, res, next) => {
+  next(new NotFoundError(`Can't find ${req.originalUrl} on this server`));
+});
 
 app.use(errorHandlerMiddleware);
 
