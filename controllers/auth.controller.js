@@ -16,7 +16,7 @@ export const login = asyncHandler(async (req, res, next) => {
   const { email, password } = req.body;
 
   if (!email || !password) {
-    return next(new BadRequesError('Plaese provide email and password'));
+    return next(new BadRequesError('Please provide email and password'));
   }
 
   const user = await User.findOne({ email }).select('+password');
