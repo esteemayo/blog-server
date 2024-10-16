@@ -28,3 +28,13 @@ export const login = asyncHandler(async (req, res, next) => {
 
   return createSendToken(user, StatusCodes.OK, req, res);
 });
+
+export const logout = (req, res, next) => {
+  res
+    .clearCookie('authToken', {
+      sameSite: 'none',
+      secure: req.secure || req.headers['x-forwarded-proto'] === 'https',
+    })
+    .status(StatusCodes.OK)
+    .json('User has been logged out');
+};
