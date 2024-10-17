@@ -1,4 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
+import crypto from 'crypto';
 import asyncHandler from 'express-async-handler';
 
 import CustomAPIError from '../errors/cutom.api.error.js';
@@ -98,4 +99,28 @@ export const forgotPassword = asyncHandler(async (req, res, next) => {
       ),
     );
   }
+});
+
+export const resetPassword = asyncHandler(async (req, res, next) => {
+  const { password, passwordConfirm } = req.body;
+
+  const hashedToken = crypto
+    .createHash('sha256')
+    .update(req.params.token)
+    .digest('hex');
+
+  const user = await User.findOne({
+    passwordResetToken: hashedToken,
+    passwordResetExpires: { $gt: Date.now() },
+  });
+
+  if (!user) {
+    return next(new BadRequesError('Token is invalid or has expired'));
+  }
+
+  user.password = password;
+  user.passwordConfirm = passwordConfirm;
+  await user.save();
+
+  return createSendToken(user, StatusCodes.OK, req, res);
 });
