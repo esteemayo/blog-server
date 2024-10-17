@@ -10,6 +10,16 @@ import BadRequesError from './../errors/bad.request.error.js';
 
 import { createSendToken } from '../utils/create.send.token.util.js';
 
+export const getUsers = asyncHandler(async (req, res, next) => {
+  const query = req.query.new;
+
+  const users = query
+    ? await User.find().sort('-createdAt').limit(5)
+    : await User.find().sort('-_id');
+
+  return res.status(StatusCodes.OK).json(users);
+});
+
 export const updateMe = asyncHandler(async (req, res, next) => {
   const { id: userId } = req.user;
   const { password, passwordConfirm } = req.body;
