@@ -11,4 +11,6 @@ router.patch('/update-me', userController.updateMe);
 
 router.delete('/delete-me', userController.deleteMe);
 
+router.route('/').get(userController.getUsers);
+
 export default router;
