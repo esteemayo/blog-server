@@ -7,7 +7,7 @@ const router = express.Router();
 
 router.use(authMiddleware.protect);
 
-router.get('/me', userController.getMe);
+router.get('/me', userController.getMe, userController.getUser);
 
 router.patch('/update-me', userController.updateMe);
 
