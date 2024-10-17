@@ -10,6 +10,7 @@ import User from '../models/user.model.js';
 
 import { sendEmail } from './../utils/email.util.js';
 import { createSendToken } from './../utils/create.send.token.util.js';
+import UnauthenticatedError from '../errors/unauthenticated.error.js';
 
 export const register = asyncHandler(async (req, res, next) => {
   const user = await User.create({ ...req.body });
@@ -114,6 +115,23 @@ export const resetPassword = asyncHandler(async (req, res, next) => {
 
   if (!user) {
     return next(new BadRequesError('Token is invalid or has expired'));
+  }
+
+  user.password = password;
+  user.passwordConfirm = passwordConfirm;
+  await user.save();
+
+  return createSendToken(user, StatusCodes.OK, req, res);
+});
+
+export const updatePassword = asyncHandler(async (req, res, next) => {
+  const { id: userId } = req.user;
+  const { password, passwordConfirm, passwordCurrent } = req.body;
+
+  const user = await User.findById(userId).select('+password');
+
+  if (!user || !(await user.comparePassword(passwordCurrent))) {
+    return next(new UnauthenticatedError('Your current password is incorrect'));
   }
 
   user.password = password;
