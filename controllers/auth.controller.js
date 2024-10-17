@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 import asyncHandler from 'express-async-handler';
 
 import BadRequesError from './../errors/bad.request.error.js';
-import User from '../models/user.models.js';
+import User from '../models/user.model.js';
 import { createSendToken } from './../utils/create.send.token.util.js';
 
 export const register = asyncHandler(async (req, res, next) => {
