@@ -27,7 +27,7 @@ const errorHandlerMiddleware = (err, req, res, next) => {
 
   if (app.get('env') === 'development') {
     sendErrorDev(customError, res);
-  } else {
+  } else if (app.get('env') === 'production') {
     sendErrorProd(customError, res);
   }
 };
