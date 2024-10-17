@@ -4,6 +4,9 @@ import asyncHandler from 'express-async-handler';
 import BadRequesError from './../errors/bad.request.error.js';
 import User from '../models/user.model.js';
 import { createSendToken } from './../utils/create.send.token.util.js';
+import NotFoundError from '../errors/not.found.error.js';
+import CustomAPIError from '../errors/cutom.api.error.js';
+import { sendEmail } from './../utils/email.util.js';
 
 export const register = asyncHandler(async (req, res, next) => {
   const user = await User.create({ ...req.body });
@@ -38,3 +41,59 @@ export const logout = (req, res, next) => {
     .status(StatusCodes.OK)
     .json('User has been logged out');
 };
+
+export const forgotPassword = asyncHandler(async (req, res, next) => {
+  const { email } = req.body;
+
+  if (!email) {
+    return next(new BadRequesError('Please enter your email address'));
+  }
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    return next(new NotFoundError('There is no user with the email address'));
+  }
+
+  const resetToken = user.changedPasswordResetToken();
+  await user.save({ validateBeforeSave: false });
+
+  const resetURL = `${req.protocol}://${req.get('host')}/api/v1/auth/reset-password/${resetToken}`;
+
+  const message = `
+    Hello ${user.name},
+    There was a request to change your password.
+    If you did not make this request then please ignore this email.
+    Otherwise, please click this link to change your password: ${resetURL}
+  `;
+
+  const html = `
+    <div style='background: #f9f9f9; color: #555; padding: 50px; text-align: justify;'>
+      <h3>Hello ${user.name},</h3>
+      <p>There was a request to change your password.</p>
+      <p>If you did not make this request then please ignore this email.</p>
+      <p>Otherwise, please click this link to change your password: 
+        <a href='${resetURL}'>Reset my password →</a>
+      </p>
+    </div>
+  `;
+
+  try {
+    await sendEmail({
+      email: user.email,
+      subject: 'Your password reset token (valid for 10 mins)',
+      message,
+      html,
+    });
+
+    return res
+      .status(StatusCodes.OK)
+      .json('Token successfully sent to your email address');
+  } catch (err) {
+    next(
+      new CustomAPIError(
+        'There was an error sending the email, Try again later',
+      ),
+    );
+  }
+});
