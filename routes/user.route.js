@@ -18,6 +18,9 @@ router
   .get(authMiddleware.restrictTo('admin'), userController.getUsers)
   .post(userController.createUser);
 
-router.route('/:id').get(userController.getUser);
+router
+  .route('/:id')
+  .get(userController.getUser)
+  .patch(userController.updateUser);
 
 export default router;
