@@ -75,3 +75,8 @@ export const deleteMe = asyncHandler(async (req, res, next) => {
 
   return res.status(StatusCodes.NO_CONTENT).end();
 });
+
+export const getMe = (req, res, next) => {
+  req.params.id = req.user.id;
+  next();
+};
