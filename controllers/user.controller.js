@@ -4,7 +4,6 @@ import asyncHandler from 'express-async-handler';
 
 import User from '../models/user.model.js';
 
-import CustomAPIError from '../errors/cutom.api.error.js';
 import NotFoundError from '../errors/not.found.error.js';
 import BadRequesError from './../errors/bad.request.error.js';
 
