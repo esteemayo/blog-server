@@ -4,8 +4,8 @@ import asyncHandler from 'express-async-handler';
 
 import User from '../models/user.model.js';
 
-import ForbiddenError from './../errors/forbidden.error.js';
-import UnauthenticatedError from './../errors/unauthenticated.error.js';
+import { ForbiddenError } from './../errors/forbidden.error.js';
+import { UnauthenticatedError } from './../errors/unauthenticated.error.js';
 
 export const protect = asyncHandler(async (req, res, next) => {
   let token;
