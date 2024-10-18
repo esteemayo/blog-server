@@ -9,8 +9,8 @@ import { NotFoundError } from '../errors/not.found.error.js';
 import { UnauthenticatedError } from '../errors/unauthenticated.error.js';
 import { CustomAPIError } from '../errors/cutom.api.error.js';
 
-import { sendEmail } from './../utils/email.util.js';
 import { createSendToken } from './../utils/create.send.token.util.js';
+import { sendEmail } from './../utils/email.util.js';
 import { createSendGoogleToken } from '../utils/create.send.google.token.util.js';
 
 export const register = asyncHandler(async (req, res, next) => {
