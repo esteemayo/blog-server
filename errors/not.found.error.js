@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import CustomAPIError from './cutom.api.error.js';
 
-class NotFoundError extends CustomAPIError {
+export class NotFoundError extends CustomAPIError {
   constructor(message) {
     super(message);
 
@@ -10,5 +10,3 @@ class NotFoundError extends CustomAPIError {
     this.statusCode = StatusCodes.NOT_FOUND;
   }
 }
-
-export default NotFoundError;
