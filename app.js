@@ -17,7 +17,7 @@ import 'colors';
 import authRoute from './routes/auth.route.js';
 import userRoute from './routes/user.route.js';
 
-import NotFoundError from './errors/not.found.error.js';
+import { NotFoundError } from './errors/not.found.error.js';
 import errorHandler from './middlewares/error.handler.middleware.js';
 
 dotenv.config({ path: './config.env' });
