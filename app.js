@@ -1,16 +1,16 @@
 /* eslint-disable */
 
-import express from 'express';
-import hpp from 'hpp';
-import compression from 'compression';
-import cors from 'cors';
-import cookieParser from 'cookie-parser';
 import helmet from 'helmet';
-import rateLimit from 'express-rate-limit';
+import hpp from 'hpp';
+import express from 'express';
+import cors from 'cors';
+import compression from 'compression';
 import morgan from 'morgan';
-import mongoSanitize from 'express-mongo-sanitize';
+import cookieParser from 'cookie-parser';
 import xss from 'xss-clean';
+import rateLimit from 'express-rate-limit';
 import dotenv from 'dotenv';
+import mongoSanitize from 'express-mongo-sanitize';
 
 import 'colors';
 
