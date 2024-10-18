@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import CustomAPIError from './cutom.api.error.js';
 
-class BadRequesError extends CustomAPIError {
+export class BadRequesError extends CustomAPIError {
   constructor(message) {
     super(message);
 
@@ -10,5 +10,3 @@ class BadRequesError extends CustomAPIError {
     this.statusCode = StatusCodes.BAD_REQUEST;
   }
 }
-
-export default BadRequesError;
