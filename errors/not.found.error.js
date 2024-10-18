@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-import CustomAPIError from './cutom.api.error.js';
+import { CustomAPIError } from './cutom.api.error.js';
 
 export class NotFoundError extends CustomAPIError {
   constructor(message) {
