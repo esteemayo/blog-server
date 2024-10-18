@@ -1,6 +1,6 @@
 import { StatusCodes } from 'http-status-codes';
 
-class CustomAPIError extends Error {
+export class CustomAPIError extends Error {
   constructor(message) {
     super(message);
 
@@ -8,5 +8,3 @@ class CustomAPIError extends Error {
     this.statusCode = StatusCodes.INTERNAL_SERVER_ERROR;
   }
 }
-
-export default CustomAPIError;
