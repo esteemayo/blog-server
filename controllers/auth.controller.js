@@ -11,6 +11,7 @@ import { CustomAPIError } from '../errors/cutom.api.error.js';
 
 import { sendEmail } from './../utils/email.util.js';
 import { createSendToken } from './../utils/create.send.token.util.js';
+import { createSendGoogleToken } from '../utils/create.send.google.token.util.js';
 
 export const register = asyncHandler(async (req, res, next) => {
   const user = await User.create({ ...req.body });
@@ -34,6 +35,23 @@ export const login = asyncHandler(async (req, res, next) => {
   }
 
   return createSendToken(user, StatusCodes.OK, req, res);
+});
+
+export const googleLogin = asyncHandler(async (req, res, next) => {
+  const { email } = req.body;
+
+  const user = await User.findOne({ email });
+
+  if (!user) {
+    const newUser = await User.create({
+      ...req.body,
+      fromGoogle: true,
+    });
+
+    return createSendGoogleToken(newUser, StatusCodes.CREATED, req, res);
+  }
+
+  return createSendGoogleToken(user, StatusCodes.OK, req, res);
 });
 
 export const logout = (req, res, next) => {
