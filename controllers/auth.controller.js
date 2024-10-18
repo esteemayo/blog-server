@@ -5,9 +5,9 @@ import asyncHandler from 'express-async-handler';
 import User from '../models/user.model.js';
 
 import { BadRequesError } from './../errors/bad.request.error.js';
-import CustomAPIError from '../errors/cutom.api.error.js';
-import { UnauthenticatedError } from '../errors/unauthenticated.error.js';
 import { NotFoundError } from '../errors/not.found.error.js';
+import { UnauthenticatedError } from '../errors/unauthenticated.error.js';
+import { CustomAPIError } from '../errors/cutom.api.error.js';
 
 import { sendEmail } from './../utils/email.util.js';
 import { createSendToken } from './../utils/create.send.token.util.js';
