@@ -2,7 +2,7 @@ import { StatusCodes } from 'http-status-codes';
 
 import CustomAPIError from './cutom.api.error.js';
 
-class ForbiddenError extends CustomAPIError {
+export class ForbiddenError extends CustomAPIError {
   constructor(message) {
     super(message);
 
@@ -10,5 +10,3 @@ class ForbiddenError extends CustomAPIError {
     this.statusCode = StatusCodes.FORBIDDEN;
   }
 }
-
-export default ForbiddenError;
