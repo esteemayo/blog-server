@@ -5,7 +5,7 @@ import asyncHandler from 'express-async-handler';
 import User from '../models/user.model.js';
 
 import { NotFoundError } from '../errors/not.found.error.js';
-import BadRequesError from './../errors/bad.request.error.js';
+import { BadRequesError } from './../errors/bad.request.error.js';
 
 import { createSendToken } from '../utils/create.send.token.util.js';
 
