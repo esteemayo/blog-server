@@ -3,14 +3,14 @@ import crypto from 'crypto';
 import asyncHandler from 'express-async-handler';
 
 import CustomAPIError from '../errors/cutom.api.error.js';
-import NotFoundError from '../errors/not.found.error.js';
-import BadRequesError from './../errors/bad.request.error.js';
+import { NotFoundError } from '../errors/not.found.error.js';
+import { BadRequesError } from './../errors/bad.request.error.js';
 
 import User from '../models/user.model.js';
 
 import { sendEmail } from './../utils/email.util.js';
 import { createSendToken } from './../utils/create.send.token.util.js';
-import UnauthenticatedError from '../errors/unauthenticated.error.js';
+import { UnauthenticatedError } from '../errors/unauthenticated.error.js';
 
 export const register = asyncHandler(async (req, res, next) => {
   const user = await User.create({ ...req.body });
