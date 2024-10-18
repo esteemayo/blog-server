@@ -21,6 +21,15 @@ router
 router
   .route('/:id')
   .get(userController.getUser)
-  .patch(authMiddleware.verifyUser, userController.updateUser);
+  .patch(
+    authMiddleware.verifyUser,
+    authMiddleware.restrictTo('admin'),
+    userController.updateUser,
+  )
+  .delete(
+    authMiddleware.verifyUser,
+    authMiddleware.restrictTo('admin'),
+    userController.deleteUser,
+  );
 
 export default router;
