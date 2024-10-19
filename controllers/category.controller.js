@@ -56,3 +56,19 @@ export const updateCategory = asyncHandler(async (req, res, next) => {
 
   return res.status(StatusCodes.OK).json(updatedCategory);
 });
+
+export const deleteCategory = asyncHandler(async (req, res, next) => {
+  const { id: categoryId } = req.params;
+
+  const category = await Category.findByIdAndDelete(categoryId);
+
+  if (!category) {
+    return next(
+      new NotFoundError(
+        `There is no category found with the given ID → ${categoryId}`,
+      ),
+    );
+  }
+
+  return res.status(StatusCodes.NO_CONTENT).end();
+});
