@@ -12,6 +12,9 @@ router
   .get(categoryController.getCategories)
   .post(authMiddleware.restrictTo('admin'), categoryController.createCategory);
 
-router.route('/:id').get(categoryController.getCategory);
+router
+  .route('/:id')
+  .get(categoryController.getCategory)
+  .patch(authMiddleware.restrictTo('admin'), categoryController.updateCategory);
 
 export default router;
