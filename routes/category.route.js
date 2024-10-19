@@ -15,6 +15,10 @@ router
 router
   .route('/:id')
   .get(categoryController.getCategory)
-  .patch(authMiddleware.restrictTo('admin'), categoryController.updateCategory);
+  .patch(authMiddleware.restrictTo('admin'), categoryController.updateCategory)
+  .delete(
+    authMiddleware.restrictTo('admin'),
+    categoryController.deleteCategory,
+  );
 
 export default router;
