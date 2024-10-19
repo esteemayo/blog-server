@@ -11,28 +11,7 @@ export const getCategory = factory.getOneById(Category);
 
 export const createCategory = factory.createOne(Category);
 
-export const updateCategory = asyncHandler(async (req, res, next) => {
-  const { id: categoryId } = req.params;
-
-  const updatedCategory = await Category.findByIdAndUpdate(
-    categoryId,
-    { $set: { ...req.body } },
-    {
-      new: true,
-      runValidators: true,
-    },
-  );
-
-  if (!updatedCategory) {
-    return next(
-      new NotFoundError(
-        `There is no category found with the given ID → ${categoryId}`,
-      ),
-    );
-  }
-
-  return res.status(StatusCodes.OK).json(updatedCategory);
-});
+export const updateCategory = factory.updateOne(Category);
 
 export const deleteCategory = asyncHandler(async (req, res, next) => {
   const { id: categoryId } = req.params;
