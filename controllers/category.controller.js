@@ -25,3 +25,11 @@ export const getCategory = asyncHandler(async (req, res, next) => {
 
   return res.status(StatusCodes.OK).json(category);
 });
+
+export const createCategory = asyncHandler(async (req, res, next) => {
+  const category = await Category.create({ ...req.body });
+
+  if (category) {
+    return res.status(StatusCodes.CREATED).json(category);
+  }
+});
