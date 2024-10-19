@@ -7,9 +7,7 @@ const router = express.Router();
 
 router.use(authMiddleware.protect);
 
-router
-  .route('/')
-  .get(authMiddleware.restrictTo('admin'), categoryController.getCategories);
+router.route('/').get(categoryController.getCategories);
 
 router.route('/:id').get(categoryController.getCategory);
 
