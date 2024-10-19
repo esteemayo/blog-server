@@ -11,4 +11,6 @@ router
   .route('/')
   .get(authMiddleware.restrictTo('admin'), categoryController.getCategories);
 
+router.route('/:id').get(categoryController.getCategory);
+
 export default router;
