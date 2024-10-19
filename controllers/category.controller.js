@@ -9,13 +9,7 @@ export const getCategories = factory.getAll(Category);
 
 export const getCategory = factory.getOneById(Category);
 
-export const createCategory = asyncHandler(async (req, res, next) => {
-  const category = await Category.create({ ...req.body });
-
-  if (category) {
-    return res.status(StatusCodes.CREATED).json(category);
-  }
-});
+export const createCategory = factory.createOne(Category);
 
 export const updateCategory = asyncHandler(async (req, res, next) => {
   const { id: categoryId } = req.params;
