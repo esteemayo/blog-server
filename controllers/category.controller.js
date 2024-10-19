@@ -3,12 +3,9 @@ import asyncHandler from 'express-async-handler';
 
 import Category from '../models/category.model.js';
 import { NotFoundError } from '../errors/not.found.error.js';
+import * as factory from '../controllers/handler.factory.controller.js';
 
-export const getCategories = asyncHandler(async (req, res, next) => {
-  const categories = await Category.find();
-
-  return res.status(StatusCodes.OK).json(categories);
-});
+export const getCategories = factory.getAll(Category);
 
 export const getCategory = asyncHandler(async (req, res, next) => {
   const { id: categoryId } = req.params;
