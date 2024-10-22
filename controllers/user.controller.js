@@ -7,6 +7,7 @@ import User from '../models/user.model.js';
 import { NotFoundError } from '../errors/not.found.error.js';
 import { BadRequesError } from './../errors/bad.request.error.js';
 
+import * as factory from './handler.factory.controller.js'
 import { createSendToken } from '../utils/create.send.token.util.js';
 
 export const getUsers = asyncHandler(async (req, res, next) => {
@@ -33,26 +34,7 @@ export const getUser = asyncHandler(async (req, res, next) => {
   return res.status(StatusCodes.OK).json(user);
 });
 
-export const updateUser = asyncHandler(async (req, res, next) => {
-  const { id: userId } = req.params;
-
-  const user = await User.findByIdAndUpdate(
-    userId,
-    { $set: { ...req.body } },
-    {
-      new: true,
-      runValidators: true,
-    },
-  );
-
-  if (!user) {
-    return next(
-      new NotFoundError(`There is no user found with the given ID → ${userId}`),
-    );
-  }
-
-  return res.status(StatusCodes.OK).json(user);
-});
+export const updateUser = factory.updateOne(User, 'user')
 
 export const updateMe = asyncHandler(async (req, res, next) => {
   const { id: userId } = req.user;
