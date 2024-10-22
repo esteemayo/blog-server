@@ -14,10 +14,6 @@ export const getPosts = asyncHandler(async (req, res, next) => {
   return res.status(StatusCodes.OK).json(posts);
 });
 
-export const getPostById = factory.getOneById(Post, 'post');
-export const getPostBySlug = factory.getOneBySlug(Post, 'post');
-export const createPost = factory.createOne(Post);
-
 export const updatePost = asyncHandler(async (req, res, next) => {
   const { id: postId } = req.params;
   const { id: userId, role } = req.user;
@@ -77,3 +73,7 @@ export const deletePost = asyncHandler(async (req, res, next) => {
 
   return res.status(StatusCodes.NO_CONTENT).end();
 });
+
+export const getPostById = factory.getOneById(Post, 'post');
+export const getPostBySlug = factory.getOneBySlug(Post, 'post');
+export const createPost = factory.createOne(Post);
