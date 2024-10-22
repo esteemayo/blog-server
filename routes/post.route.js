@@ -10,7 +10,10 @@ router
   .get(postController.getPosts)
   .post(authMiddleware.protect, postController.createPost);
 
-router.route('/:id').get(postController.getPostById);
+router
+  .route('/:id')
+  .get(postController.getPostById)
+  .patch(authMiddleware.protect, postController.updatePost);
 
 router.get('/details/:slug', postController.getPostBySlug);
 
