@@ -12,6 +12,7 @@ const postSchema = new Schema(
     },
     desc: {
       type: String,
+      required: [true, 'A post must have description'],
       trim: true,
     },
     likes: {
