@@ -65,7 +65,7 @@ export const deletePost = asyncHandler(async (req, res, next) => {
     );
   }
 
-  if (String(post.author) === userId || role !== 'admin') {
+  if (String(post.author) !== userId || role !== 'admin') {
     return next(
       new ForbiddenError(
         'You do not have permission to perform this operation',
