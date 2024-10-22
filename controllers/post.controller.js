@@ -26,7 +26,7 @@ export const updatePost = asyncHandler(async (req, res, next) => {
 
   if (!post) {
     return next(
-      new NotFoundError(`There is no post found with the given ID →${postId}`),
+      new NotFoundError(`There is no post found with the given ID → ${postId}`),
     );
   }
 
@@ -61,7 +61,7 @@ export const deletePost = asyncHandler(async (req, res, next) => {
 
   if (!post) {
     return next(
-      new NotFoundError(`There is no post found with the given ID →${postId}`),
+      new NotFoundError(`There is no post found with the given ID → ${postId}`),
     );
   }
 
