@@ -1,4 +1,5 @@
 import { StatusCodes } from 'http-status-codes';
+import slugify from 'slugify';
 import asyncHandler from 'express-async-handler';
 
 import Post from '../models/post.model.js';
@@ -36,6 +37,9 @@ export const updatePost = asyncHandler(async (req, res, next) => {
       ),
     );
   }
+
+  if (req.body.title)
+    req.body.slug = slugify(req.body.title, { lower: true, trim: true });
 
   const updatedPost = await Post.findByIdAndUpdate(
     postId,
