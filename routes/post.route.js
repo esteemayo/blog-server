@@ -13,7 +13,8 @@ router
 router
   .route('/:id')
   .get(postController.getPostById)
-  .patch(authMiddleware.protect, postController.updatePost);
+  .patch(authMiddleware.protect, postController.updatePost)
+  .delete(authMiddleware.protect, postController.deletePost);
 
 router.get('/details/:slug', postController.getPostBySlug);
 
