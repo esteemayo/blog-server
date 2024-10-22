@@ -60,6 +60,7 @@ const userSchema = new Schema(
         values: ['admin', 'user'],
         message: 'Role is either: admin or user',
       },
+      default: 'user',
     },
     isActive: {
       type: Boolean,
