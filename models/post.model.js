@@ -27,6 +27,9 @@ const postSchema = new Schema(
       type: Types.ObjectId,
       ref: 'User',
     },
+    slug: {
+      type: String,
+    },
   },
   { timestamps: true },
 );
