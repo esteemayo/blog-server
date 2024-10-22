@@ -34,8 +34,6 @@ export const getUser = asyncHandler(async (req, res, next) => {
   return res.status(StatusCodes.OK).json(user);
 });
 
-export const updateUser = factory.updateOne(User, 'user');
-
 export const updateMe = asyncHandler(async (req, res, next) => {
   const { id: userId } = req.user;
   const { password, passwordConfirm } = req.body;
@@ -76,8 +74,6 @@ export const updateMe = asyncHandler(async (req, res, next) => {
   return createSendToken(updatedUser, StatusCodes.OK, req, res);
 });
 
-export const deleteUser = factory.deleteOne(User, 'user');
-
 export const deleteMe = asyncHandler(async (req, res, next) => {
   const { id: userId } = req.user;
 
@@ -105,3 +101,6 @@ export const createUser = (req, res, next) => {
     message: `This route is not defined! Please use ${req.protocol}://${req.get('host')}/api/v1/auth/register`,
   });
 };
+
+export const updateUser = factory.updateOne(User, 'user');
+export const deleteUser = factory.deleteOne(User, 'user');
