@@ -12,3 +12,4 @@ export const getPosts = asyncHandler(async (req, res, next) => {
 
 export const getPostById = factory.getOneById(Post);
 export const getPostBySlug = factory.getOneBySlug(Post);
+export const createPost = factory.createOne(Post);
