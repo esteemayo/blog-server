@@ -20,19 +20,7 @@ export const getUsers = asyncHandler(async (req, res, next) => {
   return res.status(StatusCodes.OK).json(users);
 });
 
-export const getUser = asyncHandler(async (req, res, next) => {
-  const { id: userId } = req.params;
-
-  const user = await User.findById(userId);
-
-  if (!user) {
-    return next(
-      new NotFoundError(`There is no user found with the given ID → ${userId}`),
-    );
-  }
-
-  return res.status(StatusCodes.OK).json(user);
-});
+export const getUser = factory.getOneById(User, 'user');
 
 export const updateMe = asyncHandler(async (req, res, next) => {
   const { id: userId } = req.user;
