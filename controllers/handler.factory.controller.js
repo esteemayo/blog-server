@@ -46,6 +46,8 @@ export const getOneBySlug = (Model, label) =>
 
 export const createOne = (Model) =>
   asyncHandler(async (req, res, next) => {
+    if (!req.body.author) req.body.author = req.user.id;
+
     const doc = await Model.create({ ...req.body });
 
     if (doc) {
