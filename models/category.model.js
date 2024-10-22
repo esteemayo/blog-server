@@ -7,6 +7,9 @@ const categorySchema = new Schema(
     name: {
       type: String,
       required: [true, 'A category must have a name'],
+      unique: true,
+      lowerCase: true,
+      trim: true,
     },
   },
   { timestamps: true },
