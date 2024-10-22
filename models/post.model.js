@@ -13,6 +13,16 @@ const postSchema = new Schema(
       type: String,
       trim: true,
     },
+    likes: {
+      type: [String],
+    },
+    dislikes: {
+      type: [String],
+    },
+    views: {
+      type: Number,
+      default: 0,
+    },
     author: {
       type: Types.ObjectId,
       ref: 'User',
