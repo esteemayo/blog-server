@@ -3,6 +3,8 @@ import asyncHandler from 'express-async-handler';
 
 import Post from '../models/post.model.js';
 import * as factory from './handler.factory.controller.js';
+import { NotFoundError } from '../errors/not.found.error.js';
+import { ForbiddenError } from '../errors/forbidden.error.js';
 
 export const getPosts = asyncHandler(async (req, res, next) => {
   const posts = await Post.find();
@@ -13,5 +15,37 @@ export const getPosts = asyncHandler(async (req, res, next) => {
 export const getPostById = factory.getOneById(Post);
 export const getPostBySlug = factory.getOneBySlug(Post);
 export const createPost = factory.createOne(Post);
-export const updatePost = factory.updateOne(Post);
+
+export const updatePost = asyncHandler(async (req, res, next) => {
+  const { id: postId } = req.params;
+  const { id: userId, role } = req.user;
+
+  const post = await Post.findById(postId);
+
+  if (!post) {
+    return next(
+      new NotFoundError(`There is no post found with the given ID →${postId}`),
+    );
+  }
+
+  if (String(post.author) !== userId || role !== 'admin') {
+    return next(
+      new ForbiddenError(
+        'You do not have permission to perform this operation',
+      ),
+    );
+  }
+
+  const updatedPost = await Post.findByIdAndUpdate(
+    postId,
+    { $set: { ...req.body } },
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
+
+  return res.status(StatusCodes.OK).json(updatedPost);
+});
+
 export const deletePost = factory.deleteOne(Post);
