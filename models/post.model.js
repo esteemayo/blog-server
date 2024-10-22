@@ -26,6 +26,7 @@ const postSchema = new Schema(
     author: {
       type: Types.ObjectId,
       ref: 'User',
+      required: [true, 'A post must have an author'],
     },
     slug: {
       type: String,
