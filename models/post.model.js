@@ -1,6 +1,8 @@
 import mongoose from 'mongoose';
 
-const postSchema = new mongoose.Schema(
+const { Schema, Types } = mongoose;
+
+const postSchema = new Schema(
   {
     title: {
       type: String,
@@ -12,7 +14,7 @@ const postSchema = new mongoose.Schema(
       trim: true,
     },
     author: {
-      type: mongoose.Types.ObjectId,
+      type: Types.ObjectId,
       ref: 'User',
     },
   },
