@@ -10,7 +10,7 @@ export const getAll = (Model) =>
     return res.status(StatusCodes.OK).json(docs);
   });
 
-export const getOneById = (Model) =>
+export const getOneById = (Model, label) =>
   asyncHandler(async (req, res, next) => {
     const { id: docId } = req.params;
 
@@ -19,7 +19,7 @@ export const getOneById = (Model) =>
     if (!doc) {
       return next(
         new NotFoundError(
-          `There is no document found with the given ID → ${docId}`,
+          `There is no ${label} found with the given ID → ${docId}`,
         ),
       );
     }
@@ -27,7 +27,7 @@ export const getOneById = (Model) =>
     return res.status(StatusCodes.OK).json(doc);
   });
 
-export const getOneBySlug = (Model) =>
+export const getOneBySlug = (Model, label) =>
   asyncHandler(async (req, res, next) => {
     const { slug } = req.params;
 
@@ -36,7 +36,7 @@ export const getOneBySlug = (Model) =>
     if (!doc) {
       return next(
         new NotFoundError(
-          `There is no document found with the given SLUG → ${slug}`,
+          `There is no ${label} found with the given SLUG → ${slug}`,
         ),
       );
     }
@@ -53,7 +53,7 @@ export const createOne = (Model) =>
     }
   });
 
-export const updateOne = (Model) =>
+export const updateOne = (Model, label) =>
   asyncHandler(async (req, res, next) => {
     const { id: docId } = req.params;
 
@@ -69,7 +69,7 @@ export const updateOne = (Model) =>
     if (!updatedDoc) {
       return next(
         new NotFoundError(
-          `There is no document found with the given ID → ${docId}`,
+          `There is no ${label} found with the given ID → ${docId}`,
         ),
       );
     }
@@ -77,7 +77,7 @@ export const updateOne = (Model) =>
     return res.status(StatusCodes.OK).json(updatedDoc);
   });
 
-export const deleteOne = (Model) =>
+export const deleteOne = (Model, label) =>
   asyncHandler(async (req, res, next) => {
     const { id: docId } = req.params;
 
@@ -86,7 +86,7 @@ export const deleteOne = (Model) =>
     if (!doc) {
       return next(
         new NotFoundError(
-          `There is no document found with the given ID → ${docId}`,
+          `There is no ${label} found with the given ID → ${docId}`,
         ),
       );
     }
