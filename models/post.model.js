@@ -15,6 +15,11 @@ const postSchema = new Schema(
       required: [true, 'A post must have description'],
       trim: true,
     },
+    category: {
+      type: String,
+      required: [true, 'A post must belong to a category'],
+      lowerCase: true,
+    },
     likes: {
       type: [String],
     },
