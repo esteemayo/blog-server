@@ -8,4 +8,6 @@ router.route('/').get(postController.getPosts);
 
 router.route('/:id').get(postController.getPostById);
 
+router.get('/details/:slug', postController.getPostBySlug);
+
 export default router;
