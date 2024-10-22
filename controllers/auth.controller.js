@@ -31,7 +31,11 @@ export const login = asyncHandler(async (req, res, next) => {
   const user = await User.findOne({ email }).select('+password');
 
   if (!user || !(await user.comparePassword(password))) {
-    return next(new BadRequesError('Incorrect email or password'));
+    return next(
+      new BadRequesError(
+        `That email and password combination didn't work. Try again.`,
+      ),
+    );
   }
 
   return createSendToken(user, StatusCodes.OK, req, res);
