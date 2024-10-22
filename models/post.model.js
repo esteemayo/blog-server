@@ -12,7 +12,7 @@ const postSchema = new mongoose.Schema(
       trim: true,
     },
     author: {
-      type: mongoose.Schema.Types,
+      type: mongoose.Types.ObjectId,
       ref: 'User',
     },
   },
