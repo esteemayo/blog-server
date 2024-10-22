@@ -13,8 +13,8 @@ export const protect = asyncHandler(async (req, res, next) => {
 
   if (authHeader && authHeader.startsWith('Bearer')) {
     token = authHeader.split(' ').pop();
-  } else if (req.cookie.authToken) {
-    token = req.cookie.authToken;
+  } else if (req.cookies.authToken) {
+    token = req.cookies.authToken;
   }
 
   if (!token) {
