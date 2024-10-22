@@ -20,8 +20,6 @@ export const getUsers = asyncHandler(async (req, res, next) => {
   return res.status(StatusCodes.OK).json(users);
 });
 
-export const getUser = factory.getOneById(User, 'user');
-
 export const updateMe = asyncHandler(async (req, res, next) => {
   const { id: userId } = req.user;
   const { password, passwordConfirm } = req.body;
@@ -90,5 +88,6 @@ export const createUser = (req, res, next) => {
   });
 };
 
+export const getUser = factory.getOneById(User, 'user');
 export const updateUser = factory.updateOne(User, 'user');
 export const deleteUser = factory.deleteOne(User, 'user');
