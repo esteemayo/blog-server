@@ -5,18 +5,25 @@ import * as categoryController from '../controllers/category.controller.js';
 
 const router = express.Router();
 
-router.use(authMiddleware.protect);
-
 router
   .route('/')
   .get(categoryController.getCategories)
-  .post(authMiddleware.restrictTo('admin'), categoryController.createCategory);
+  .post(
+    authMiddleware.protect,
+    authMiddleware.restrictTo('admin'),
+    categoryController.createCategory,
+  );
 
 router
   .route('/:id')
   .get(categoryController.getCategory)
-  .patch(authMiddleware.restrictTo('admin'), categoryController.updateCategory)
+  .patch(
+    authMiddleware.protect,
+    authMiddleware.restrictTo('admin'),
+    categoryController.updateCategory,
+  )
   .delete(
+    authMiddleware.protect,
     authMiddleware.restrictTo('admin'),
     categoryController.deleteCategory,
   );
