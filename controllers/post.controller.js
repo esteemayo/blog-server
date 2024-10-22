@@ -48,4 +48,27 @@ export const updatePost = asyncHandler(async (req, res, next) => {
   return res.status(StatusCodes.OK).json(updatedPost);
 });
 
-export const deletePost = factory.deleteOne(Post);
+export const deletePost = asyncHandler(async (req, res, next) => {
+  const { id: postId } = req.params;
+  const { id: userId, role } = req.user;
+
+  const post = await Post.findById(postId);
+
+  if (!post) {
+    return next(
+      new NotFoundError(`There is no post found with the given ID →${postId}`),
+    );
+  }
+
+  if (String(post.author) !== userId || role !== 'admin') {
+    return next(
+      new ForbiddenError(
+        'You do not have permission to perform this operation',
+      ),
+    );
+  }
+
+  await post.delete();
+
+  return res.status(StatusCodes.NO_CONTENT).end();
+});
