@@ -83,9 +83,9 @@ export const deleteComment = asyncHandler(async (req, res, next) => {
   }
 
   if (
-    String(comment.author._id) !== userId ||
-    String(post.author._id) !== userId ||
-    role !== 'admin'
+    String(comment.author._id) === userId ||
+    String(post.author._id) === userId ||
+    role === 'admin'
   ) {
     await Comment.findByIdAndDelete(commentId);
 
