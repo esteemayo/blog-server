@@ -7,6 +7,7 @@ const commentSchema = new Schema(
     content: {
       type: String,
       trim: true,
+      required: [true, 'A comment must have a content'],
     },
     post: {
       type: Types.ObjectId,
