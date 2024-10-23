@@ -101,6 +101,14 @@ export const getRelatedPosts = asyncHandler(async (req, res, next) => {
   return res.status(StatusCodes.OK).json(posts);
 });
 
+export const getUserLikedPosts = asyncHandler(async (req, res, next) => {
+  const { id: userId } = req.user;
+
+  const posts = await Post.find({ likes: { $in: [userId] } });
+
+  return res.status(StatusCodes.OK).json(posts);
+});
+
 export const updatePost = asyncHandler(async (req, res, next) => {
   const { id: postId } = req.params;
   const { id: userId, role } = req.user;
