@@ -30,11 +30,14 @@ export const getOneById = (Model, label, popOptions) =>
     return res.status(StatusCodes.OK).json(doc);
   });
 
-export const getOneBySlug = (Model, label) =>
+export const getOneBySlug = (Model, label, popOptions) =>
   asyncHandler(async (req, res, next) => {
     const { slug } = req.params;
 
-    const doc = await Model.findOne({ slug });
+    let query = Model.findOne({ slug });
+    if (popOptions) query = query.populate(popOptions);
+
+    const doc = await query;
 
     if (!doc) {
       return next(
