@@ -9,6 +9,12 @@ router.get('/trend', postController.getTrendingPosts);
 
 router.get('/related-posts', postController.getRelatedPosts);
 
+router.get(
+  '/liked-posts',
+  authMiddleware.protect,
+  postController.getUserLikedPosts,
+);
+
 router.get('/details/:slug', postController.getPostBySlug);
 
 router.patch('/likes/:id', authMiddleware.protect, postController.likePost);
