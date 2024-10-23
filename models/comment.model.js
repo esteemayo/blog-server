@@ -22,6 +22,15 @@ const commentSchema = new Schema(
   { timestamps: true },
 );
 
+commentSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'author',
+    select: 'name image',
+  });
+
+  next();
+});
+
 const Comment =
   mongoose.models.Comment || mongoose.model('Comment', commentSchema);
 
