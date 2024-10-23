@@ -14,6 +14,9 @@ router
     commentController.createComment,
   );
 
-router.route('/:id').get(commentController.getComment);
+router
+  .route('/:id')
+  .get(commentController.getComment)
+  .patch(authMiddleware.protect, commentController.updateComment);
 
 export default router;
