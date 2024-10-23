@@ -18,4 +18,6 @@ router
 
 router.get('/details/:slug', postController.getPostBySlug);
 
+router.patch('/likes/:id', authMiddleware.protect, postController.likePost);
+
 export default router;
