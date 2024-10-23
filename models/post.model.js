@@ -30,6 +30,13 @@ const postSchema = new Schema(
     dislikes: {
       type: [String],
     },
+    tags: {
+      type: [String],
+      validate: function (val) {
+        return val && val.length > 0;
+      },
+      message: 'A product must have at least one tag',
+    },
     views: {
       type: Number,
       default: 0,
