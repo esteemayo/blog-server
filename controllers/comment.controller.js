@@ -11,3 +11,4 @@ export const getComments = asyncHandler(async (req, res, next) => {
 });
 
 export const getComment = factory.getOneById(Comment, 'comment');
+export const createComment = factory.createOne(Comment);
