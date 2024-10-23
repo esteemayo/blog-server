@@ -10,7 +10,7 @@ import { ForbiddenError } from '../errors/forbidden.error.js';
 
 export const getPosts = asyncHandler(async (req, res, next) => {
   const queryObj = {};
-  const { category, featured, fields, sort, numericFilter, title } = req.query;
+  const { category, featured, fields, numericFilter, sort, title } = req.query;
 
   if (category) {
     queryObj.category = category;
