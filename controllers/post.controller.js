@@ -149,7 +149,15 @@ export const dislikePost = asyncHandler(async (req, res, next) => {
   const { id: userId } = req.user;
   const { id: postId } = req.params;
 
-  const post = await Post.findByIdAndUpdate(
+  let post = await Post.findById(postId);
+
+  if (!post) {
+    return next(
+      new NotFoundError(`There is no post found with the given ID → ${postId}`),
+    );
+  }
+
+  post = await Post.findByIdAndUpdate(
     postId,
     {
       $addToSet: { dislikes: userId },
@@ -160,12 +168,6 @@ export const dislikePost = asyncHandler(async (req, res, next) => {
       runValidators: true,
     },
   );
-
-  if (!post) {
-    return next(
-      new NotFoundError(`There is no post found with the given ID → ${postId}`),
-    );
-  }
 
   return res.status(StatusCodes.OK).json(post);
 });
