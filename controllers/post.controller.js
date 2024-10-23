@@ -66,9 +66,23 @@ export const getPosts = asyncHandler(async (req, res, next) => {
     query = query.select('-__v');
   }
 
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 20;
+
+  const skip = (page - 1) * limit;
+  const counts = await Post.countDocuments();
+
+  const numberOfPages = counts / limit;
+  query = query.skip(skip).limit(limit);
+
   const posts = await query;
 
-  return res.status(StatusCodes.OK).json(posts);
+  return res.status(StatusCodes.OK).json({
+    page,
+    counts,
+    numberOfPages,
+    posts,
+  });
 });
 
 export const updatePost = asyncHandler(async (req, res, next) => {
