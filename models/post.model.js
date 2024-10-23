@@ -20,6 +20,10 @@ const postSchema = new Schema(
       required: [true, 'A post must belong to a category'],
       lowerCase: true,
     },
+    featured: {
+      type: Boolean,
+      default: false,
+    },
     likes: {
       type: [String],
     },
