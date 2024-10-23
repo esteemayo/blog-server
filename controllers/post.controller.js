@@ -59,6 +59,13 @@ export const getPosts = asyncHandler(async (req, res, next) => {
     query = query.sort('-createdAt');
   }
 
+  if (fields) {
+    const fieldsList = fields.split(',').join(' ');
+    query = query.select(fieldsList);
+  } else {
+    query = query.select('-__v');
+  }
+
   const posts = await query;
 
   return res.status(StatusCodes.OK).json(posts);
