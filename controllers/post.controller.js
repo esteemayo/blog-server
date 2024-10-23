@@ -85,6 +85,12 @@ export const getPosts = asyncHandler(async (req, res, next) => {
   });
 });
 
+export const getTrendingPosts = asyncHandler(async (req, res, next) => {
+  const posts = await Post.find().sort('-views');
+
+  return res.status(StatusCodes.OK).json(posts);
+});
+
 export const getRelatedPosts = asyncHandler(async (req, res, next) => {
   const tags = req.query.tags.split(',');
 
