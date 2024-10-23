@@ -85,6 +85,14 @@ export const getPosts = asyncHandler(async (req, res, next) => {
   });
 });
 
+export const getRelatedPosts = asyncHandler(async (req, res, next) => {
+  const tags = req.query.tags.split(',');
+
+  const posts = await Post.find({ tags: { $in: tags } }).limit(4);
+
+  return res.status(StatusCodes.OK).json(posts);
+});
+
 export const updatePost = asyncHandler(async (req, res, next) => {
   const { id: postId } = req.params;
   const { id: userId, role } = req.user;
