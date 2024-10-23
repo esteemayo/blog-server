@@ -58,5 +58,44 @@ export const updateComment = asyncHandler(async (req, res, next) => {
   return res.status(StatusCodes.OK).json(updatedComment);
 });
 
+export const deleteComment = asyncHandler(async (req, res, next) => {
+  const { id: commentId } = req.params;
+  const { id: userId, role } = req.user;
+
+  const comment = await Comment.findById(commentId);
+
+  if (!comment) {
+    return next(
+      new NotFoundError(
+        `There is no comment found with the given ID → ${commentId}`,
+      ),
+    );
+  }
+
+  const post = await Post.findById(comment.post);
+
+  if (!post) {
+    return next(
+      new NotFoundError(
+        `There is no post found with the given ID → ${post?._id}`,
+      ),
+    );
+  }
+
+  if (
+    String(comment.author._id) !== userId ||
+    String(post.author._id) !== userId ||
+    role !== 'admin'
+  ) {
+    return next(
+      new ForbiddenError('You are not allowed to perform this action'),
+    );
+  }
+
+  await Comment.findByIdAndDelete(commentId);
+
+  return res.status(StatusCodes.NO_CONTENT).end();
+});
+
 export const getComment = factory.getOneById(Comment, 'comment');
 export const createComment = factory.createOne(Comment);
