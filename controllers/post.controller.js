@@ -120,6 +120,31 @@ export const updatePost = asyncHandler(async (req, res, next) => {
   return res.status(StatusCodes.OK).json(updatedPost);
 });
 
+export const likePost = asyncHandler(async (req, res, next) => {
+  const { id: userId } = req.user;
+  const { id: postId } = req.params;
+
+  const post = await Post.findByIdAndUpdate(
+    postId,
+    {
+      $addToSet: { likes: userId },
+      $pull: { dislikes: userId },
+    },
+    {
+      new: true,
+      runValidators: true,
+    },
+  );
+
+  if (!post) {
+    return next(
+      new NotFoundError(`There is no post found with the given ID → ${postId}`),
+    );
+  }
+
+  return res.status(StatusCodes.OK).json(post);
+});
+
 export const deletePost = asyncHandler(async (req, res, next) => {
   const { id: postId } = req.params;
   const { id: userId, role } = req.user;
