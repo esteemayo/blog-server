@@ -5,6 +5,8 @@ import * as postController from '../controllers/post.controller.js';
 
 const router = express.Router();
 
+router.get('/trend', postController.getTrendingPosts);
+
 router.get('/related-posts', postController.getRelatedPosts);
 
 router.get('/details/:slug', postController.getPostBySlug);
