@@ -54,7 +54,6 @@ export const getPosts = asyncHandler(async (req, res, next) => {
 
   if (sort) {
     const sortBy = sort.split(',').join(' ');
-    console.log(sortBy);
     query = query.sort(sortBy);
   } else {
     query = query.sort('-createdAt');
