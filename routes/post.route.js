@@ -16,6 +16,8 @@ router
   .patch(authMiddleware.protect, postController.updatePost)
   .delete(authMiddleware.protect, postController.deletePost);
 
+router.get('/relatedPosts', postController.getRelatedPosts);
+
 router.get('/details/:slug', postController.getPostBySlug);
 
 router.patch('/likes/:id', authMiddleware.protect, postController.likePost);
