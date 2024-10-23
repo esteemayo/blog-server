@@ -20,4 +20,10 @@ router.get('/details/:slug', postController.getPostBySlug);
 
 router.patch('/likes/:id', authMiddleware.protect, postController.likePost);
 
+router.patch(
+  '/dislikes/:id',
+  authMiddleware.protect,
+  postController.dislikePost,
+);
+
 export default router;
