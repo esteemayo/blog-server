@@ -86,14 +86,12 @@ export const deleteComment = asyncHandler(async (req, res, next) => {
     String(post.author._id) !== userId ||
     role !== 'admin'
   ) {
-    return next(
-      new ForbiddenError('You are not allowed to perform this action'),
-    );
+    await Comment.findByIdAndDelete(commentId);
+
+    return res.status(StatusCodes.NO_CONTENT).end();
   }
 
-  await Comment.findByIdAndDelete(commentId);
-
-  return res.status(StatusCodes.NO_CONTENT).end();
+  return next(new ForbiddenError('You are not allowed to perform this action'));
 });
 
 export const getComment = factory.getOneById(Comment, 'comment');
