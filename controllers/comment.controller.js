@@ -4,9 +4,10 @@ import asyncHandler from 'express-async-handler';
 import Post from '../models/post.model.js';
 import Comment from '../models/comment.model.js';
 
-import * as factory from './handler.factory.controller.js';
-import { ForbiddenError } from '../errors/forbidden.error.js';
 import { NotFoundError } from '../errors/not.found.error.js';
+import { ForbiddenError } from '../errors/forbidden.error.js';
+
+import * as factory from './handler.factory.controller.js';
 
 export const getComments = asyncHandler(async (req, res, next) => {
   const comments = await Comment.find();
