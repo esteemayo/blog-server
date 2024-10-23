@@ -72,7 +72,7 @@ export const getPosts = asyncHandler(async (req, res, next) => {
   const skip = (page - 1) * limit;
   const counts = await Post.countDocuments();
 
-  const numberOfPages = counts / limit;
+  const numberOfPages = Math.ceil(counts / limit);
   query = query.skip(skip).limit(limit);
 
   const posts = await query;
