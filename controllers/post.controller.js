@@ -88,7 +88,9 @@ export const getPosts = asyncHandler(async (req, res, next) => {
 export const getRelatedPosts = asyncHandler(async (req, res, next) => {
   const tags = req.query.tags.split(',');
 
-  const posts = await Post.find({ tags: { $in: tags } }).limit(4);
+  const posts = await Post.find({ tags: { $in: tags } })
+    .limit(4)
+    .sort('-createdAt');
 
   return res.status(StatusCodes.OK).json(posts);
 });
