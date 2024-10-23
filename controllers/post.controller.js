@@ -9,7 +9,48 @@ import { NotFoundError } from '../errors/not.found.error.js';
 import { ForbiddenError } from '../errors/forbidden.error.js';
 
 export const getPosts = asyncHandler(async (req, res, next) => {
-  const posts = await Post.find();
+  const queryObj = {};
+  const { category, featured, fields, sort, numericFilter, title } = req.query;
+
+  if (category) {
+    queryObj.category = category;
+  }
+
+  if (featured) {
+    queryObj.featured = featured === 'true' ? true : false;
+  }
+
+  if (title) {
+    queryObj.title = { $regex: title, $options: 'i' };
+  }
+
+  if (numericFilter) {
+    const operatorMap = {
+      '>': '$gt',
+      '>=': '$gte',
+      '=': '$eq',
+      '<': '$lt',
+      '<=': '$lte',
+    };
+
+    const regEx = /\b(>|>=|=|<|<=)\b/g;
+    let filters = numericFilter.replace(
+      regEx,
+      (match) => `-${operatorMap[match]}-`,
+    );
+
+    const options = ['views'];
+
+    filters = filters.split(',').forEach((el) => {
+      const [field, operator, value] = el.split('-');
+
+      if (options.includes(field)) {
+        queryObj[field] = { [operator]: Number(value) };
+      }
+    });
+  }
+
+  const posts = await Post.find(queryObj);
 
   return res.status(StatusCodes.OK).json(posts);
 });
