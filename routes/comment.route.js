@@ -17,6 +17,7 @@ router
 router
   .route('/:id')
   .get(commentController.getComment)
-  .patch(authMiddleware.protect, commentController.updateComment);
+  .patch(authMiddleware.protect, commentController.updateComment)
+  .delete(authMiddleware.protect, commentController.deleteComment);
 
 export default router;
