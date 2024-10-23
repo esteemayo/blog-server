@@ -20,7 +20,11 @@ const commentSchema = new Schema(
       required: [true, 'A comment must belong to an author'],
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  },
 );
 
 commentSchema.pre(/^find/, function (next) {
