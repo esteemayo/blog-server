@@ -50,7 +50,17 @@ export const getPosts = asyncHandler(async (req, res, next) => {
     });
   }
 
-  const posts = await Post.find(queryObj);
+  let query = Post.find(queryObj);
+
+  if (sort) {
+    const sortBy = sort.split(',').join(' ');
+    console.log(sortBy);
+    query = query.sort(sortBy);
+  } else {
+    query = query.sort('-createdAt');
+  }
+
+  const posts = await query;
 
   return res.status(StatusCodes.OK).json(posts);
 });
