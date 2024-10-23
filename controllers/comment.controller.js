@@ -38,25 +38,23 @@ export const updateComment = asyncHandler(async (req, res, next) => {
   }
 
   if (
-    String(comment.author._id) !== userId ||
-    String(post.author._id) !== userId ||
-    role !== 'admin'
+    String(comment.author._id) === userId ||
+    String(post.author._id) === userId ||
+    role === 'admin'
   ) {
-    return next(
-      new ForbiddenError('You are not allowed to perform this action'),
+    const updatedComment = await Comment.findByIdAndUpdate(
+      commentId,
+      { $set: { ...req.body } },
+      {
+        new: true,
+        runValidators: true,
+      },
     );
+
+    return res.status(StatusCodes.OK).json(updatedComment);
   }
 
-  const updatedComment = await Comment.findByIdAndUpdate(
-    commentId,
-    { $set: { ...req.body } },
-    {
-      new: true,
-      runValidators: true,
-    },
-  );
-
-  return res.status(StatusCodes.OK).json(updatedComment);
+  return next(new ForbiddenError('You are not allowed to perform this action'));
 });
 
 export const deleteComment = asyncHandler(async (req, res, next) => {
