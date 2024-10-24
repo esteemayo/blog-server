@@ -30,9 +30,9 @@ export class APIFeatures {
   limitFields() {
     if (this.queryString.fields) {
       const fieldsList = this.queryString.fields.split(',').join(' ');
-      this.query = this.query.limit(fieldsList);
+      this.query = this.query.select(fieldsList);
     } else {
-      this.query = this.query.limit('-__v');
+      this.query = this.query.select('-__v');
     }
 
     return this;
