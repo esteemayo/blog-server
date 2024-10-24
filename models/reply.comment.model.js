@@ -32,6 +32,15 @@ const replyCommentSchema = new Schema(
   },
 );
 
+replyCommentSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'author',
+    select: 'name image',
+  });
+
+  next();
+});
+
 const ReplyComment =
   mongoose.models.ReplyComment ||
   mongoose.model('ReplyComment', replyCommentSchema);
