@@ -3,7 +3,7 @@ import express from 'express';
 import * as authMiddleware from '../middlewares/auth.middleware.js';
 import * as postController from '../controllers/post.controller.js';
 
-const router = express.Router();
+const router = express.Router({ mergeParams: true });
 
 router.get('/trend', postController.getTrendingPosts);
 
