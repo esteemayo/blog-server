@@ -1,12 +1,14 @@
 import { StatusCodes } from 'http-status-codes';
 import asyncHandler from 'express-async-handler';
 
-import * as factory from './handler.factory.controller.js';
-import ReplyComment from '../models/reply.comment.model.js';
 import Comment from '../models/comment.model.js';
 import Post from '../models/post.model.js';
+import ReplyComment from '../models/reply.comment.model.js';
+
 import { NotFoundError } from '../errors/not.found.error.js';
 import { ForbiddenError } from '../errors/forbidden.error.js';
+
+import * as factory from './handler.factory.controller.js';
 
 export const getReplies = asyncHandler(async (req, res, next) => {
   const replies = await ReplyComment.find();
