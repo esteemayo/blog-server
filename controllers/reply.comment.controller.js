@@ -71,5 +71,53 @@ export const updateReply = asyncHandler(async (req, res, next) => {
   return next(new ForbiddenError('You are not allowed to perform this action'));
 });
 
+export const deleteReply = asyncHandler(async (req, res, next) => {
+  const { id: replyId } = req.params;
+  const { is: userId, role } = req.user;
+
+  const reply = await ReplyComment.findById(replyId);
+
+  if (!reply) {
+    return next(
+      new NotFoundError(
+        `There is no reply found with the given ID → ${replyId}`,
+      ),
+    );
+  }
+
+  const comment = await Comment.findById(reply.comment);
+
+  if (!comment) {
+    return next(
+      new NotFoundError(
+        `There is no comment found with the given ID → ${reply.comment}`,
+      ),
+    );
+  }
+
+  const post = await Post.findById(reply.post);
+
+  if (!post) {
+    return next(
+      new NotFoundError(
+        `There is no post found with the given ID → ${reply.post}`,
+      ),
+    );
+  }
+
+  if (
+    String(reply.author) === userId ||
+    String(comment.author) === userId ||
+    String(post.author) === userId ||
+    role === 'admin'
+  ) {
+    await ReplyComment.findByIdAndDelete(replyId);
+
+    return res.status(StatusCodes.NO_CONTENT).end();
+  }
+
+  return next(new ForbiddenError('You are not allowed to perform this action'));
+});
+
 export const getReply = factory.getOneById(ReplyComment, 'reply');
 export const createReply = factory.createOne(ReplyComment);
