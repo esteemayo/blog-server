@@ -3,4 +3,8 @@ import asyncHandler from 'express-async-handler';
 
 import ReplyComment from '../models/reply.comment.model.js';
 
-export const getReplies = asyncHandler(async (req, res, next) => {});
+export const getReplies = asyncHandler(async (req, res, next) => {
+  const replies = await ReplyComment.find();
+
+  return res.status(StatusCodes.OK).json(replies);
+});
