@@ -5,7 +5,14 @@ import * as replyCommentController from '../controllers/reply.comment.controller
 
 const router = express.Router();
 
-router.route('/').get(replyCommentController.getReplies);
+router
+  .route('/')
+  .get(replyCommentController.getReplies)
+  .post(
+    authMiddleware.protect,
+    authMiddleware.restrictTo('user'),
+    replyCommentController.createReply,
+  );
 
 router.route('/:id').get(replyCommentController.getReply);
 
