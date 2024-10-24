@@ -18,7 +18,7 @@ export const getReplies = asyncHandler(async (req, res, next) => {
 
 export const updateReply = asyncHandler(async (req, res, next) => {
   const { id: replyId } = req.params;
-  const { is: userId, role } = req.user;
+  const { id: userId, role } = req.user;
 
   const reply = await ReplyComment.findById(replyId);
 
@@ -73,7 +73,7 @@ export const updateReply = asyncHandler(async (req, res, next) => {
 
 export const deleteReply = asyncHandler(async (req, res, next) => {
   const { id: replyId } = req.params;
-  const { is: userId, role } = req.user;
+  const { id: userId, role } = req.user;
 
   const reply = await ReplyComment.findById(replyId);
 
