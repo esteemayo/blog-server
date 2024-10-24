@@ -1,9 +1,13 @@
 import express from 'express';
 
+import commentRoute from './comment.route.js';
+
 import * as authMiddleware from '../middlewares/auth.middleware.js';
 import * as postController from '../controllers/post.controller.js';
 
 const router = express.Router();
+
+router.use('/:postId/comments', commentRoute);
 
 router.get('/trend', postController.getTrendingPosts);
 
