@@ -6,7 +6,10 @@ import { NotFoundError } from '../errors/not.found.error.js';
 
 export const getAll = (Model) =>
   asyncHandler(async (req, res, next) => {
-    const features = new APIFeatures(Model.find(), req.query)
+    let filter = {};
+    if (req.params.postId) filter = { post: req.params.postId };
+
+    const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
       .sort()
       .limitFields()
