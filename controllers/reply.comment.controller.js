@@ -11,3 +11,4 @@ export const getReplies = asyncHandler(async (req, res, next) => {
 });
 
 export const getReply = factory.getOneById(ReplyComment);
+export const createReply = factory.createOne(ReplyComment);
