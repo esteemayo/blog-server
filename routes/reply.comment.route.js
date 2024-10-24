@@ -14,6 +14,9 @@ router
     replyCommentController.createReply,
   );
 
-router.route('/:id').get(replyCommentController.getReply);
+router
+  .route('/:id')
+  .get(replyCommentController.getReply)
+  .patch(authMiddleware.protect, replyCommentController.updateReply);
 
 export default router;
