@@ -51,9 +51,9 @@ export const updateReply = asyncHandler(async (req, res, next) => {
   }
 
   if (
-    String(reply.author) === userId ||
-    String(comment.author) === userId ||
-    String(post.author) === userId ||
+    String(reply.author._id) === userId ||
+    String(comment.author._id) === userId ||
+    String(post.author._id) === userId ||
     role === 'admin'
   ) {
     const updatedPost = await ReplyComment.findByIdAndUpdate(
@@ -106,9 +106,9 @@ export const deleteReply = asyncHandler(async (req, res, next) => {
   }
 
   if (
-    String(reply.author) === userId ||
-    String(comment.author) === userId ||
-    String(post.author) === userId ||
+    String(reply.author._id) === userId ||
+    String(comment.author._id) === userId ||
+    String(post.author._id) === userId ||
     role === 'admin'
   ) {
     await ReplyComment.findByIdAndDelete(replyId);
