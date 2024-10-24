@@ -9,12 +9,6 @@ import { ForbiddenError } from '../errors/forbidden.error.js';
 
 import * as factory from './handler.factory.controller.js';
 
-export const getComments = asyncHandler(async (req, res, next) => {
-  const comments = await Comment.find();
-
-  return res.status(StatusCodes.OK).json(comments);
-});
-
 export const updateComment = asyncHandler(async (req, res, next) => {
   const { id: commentId } = req.params;
   const { id: userId, role } = req.user;
@@ -96,5 +90,6 @@ export const deleteComment = asyncHandler(async (req, res, next) => {
   return next(new ForbiddenError('You are not allowed to perform this action'));
 });
 
+export const getComments = factory.getAll(Comment);
 export const getComment = factory.getOneById(Comment, 'comment');
 export const createComment = factory.createOne(Comment);
