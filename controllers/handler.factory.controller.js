@@ -1,11 +1,18 @@
 import { StatusCodes } from 'http-status-codes';
 import asyncHandler from 'express-async-handler';
 
+import { APIFeatures } from '../utils/api.features.js';
 import { NotFoundError } from '../errors/not.found.error.js';
 
 export const getAll = (Model) =>
   asyncHandler(async (req, res, next) => {
-    const docs = await Model.find();
+    const features = new APIFeatures(Model, req.query)
+      .filter()
+      .sort()
+      .limitFields()
+      .paginate();
+
+    const docs = await features.query;
 
     return res.status(StatusCodes.OK).json(docs);
   });
