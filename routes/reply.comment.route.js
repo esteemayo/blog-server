@@ -7,4 +7,6 @@ const router = express.Router();
 
 router.route('/').get(replyCommentController.getReplies);
 
+router.route('/:id').get(replyCommentController.getReply);
+
 export default router;
