@@ -10,11 +10,7 @@ import { ForbiddenError } from '../errors/forbidden.error.js';
 
 import * as factory from './handler.factory.controller.js';
 
-export const getReplies = asyncHandler(async (req, res, next) => {
-  const replies = await ReplyComment.find();
-
-  return res.status(StatusCodes.OK).json(replies);
-});
+export const getReplies = factory.getAll(ReplyComment);
 
 export const updateReply = asyncHandler(async (req, res, next) => {
   const { id: replyId } = req.params;
