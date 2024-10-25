@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import Category from '../models/category.model.js';
 import * as factory from '../controllers/handler.factory.controller.js';
 
