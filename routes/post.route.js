@@ -23,6 +23,8 @@ router.get(
 
 router.get('/details/:slug', postController.getPostBySlug);
 
+router.patch('/views/:id', postController.updateViews);
+
 router.patch('/likes/:id', authMiddleware.protect, postController.likePost);
 
 router.patch(
