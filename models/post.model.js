@@ -66,6 +66,15 @@ postSchema.virtual('comments', {
   foreignField: 'post',
 });
 
+postSchema.pre(/^find/, function (next) {
+  this.populate({
+    path: 'author',
+    select: 'name image',
+  });
+
+  next();
+});
+
 postSchema.pre('save', async function (next) {
   if (!this.isModified('title')) return next();
 
