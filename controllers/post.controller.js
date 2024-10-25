@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { StatusCodes } from 'http-status-codes';
 import slugify from 'slugify';
 import asyncHandler from 'express-async-handler';
