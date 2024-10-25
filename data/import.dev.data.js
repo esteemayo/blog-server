@@ -34,6 +34,8 @@ const replies = JSON.parse(
 
 const importData = async () => {
   try {
+    console.log('👌✌👌 Loading data...'.cyan.bold);
+
     await Comment.insertMany(comments);
     await Post.insertMany(posts);
     await Category.insertMany(categories);
