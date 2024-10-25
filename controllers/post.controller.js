@@ -114,7 +114,7 @@ export const getRelatedPosts = asyncHandler(async (req, res, next) => {
 export const getUserLikedPosts = asyncHandler(async (req, res, next) => {
   const { id: userId } = req.user;
 
-  const posts = await Post.find({ likes: userId });
+  const posts = await Post.find({ likes: userId }).sort('-_id');
 
   return res.status(StatusCodes.OK).json(posts);
 });
