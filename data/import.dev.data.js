@@ -54,7 +54,7 @@ const importData = async () => {
 
 const deleteData = async () => {
   try {
-    console.log('😢😢 Goodbye Data...');
+    console.log('😢😢 Goodbye Data...'.red.bold);
 
     await Comment.deleteMany();
     await Post.deleteMany();
