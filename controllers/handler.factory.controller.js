@@ -8,6 +8,7 @@ export const getAll = (Model) =>
   asyncHandler(async (req, res, next) => {
     let filter = {};
     if (req.params.postId) filter = { post: req.params.postId };
+    if (req.params.commentId) filter = { comment: req.params.commentId };
 
     const features = new APIFeatures(Model.find(filter), req.query)
       .filter()
