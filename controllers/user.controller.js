@@ -2,7 +2,10 @@ import { StatusCodes } from 'http-status-codes';
 import _ from 'lodash';
 import asyncHandler from 'express-async-handler';
 
+import Comment from '../models/comment.model.js';
 import User from '../models/user.model.js';
+import ReplyComment from '../models/reply.comment.model.js';
+import Post from '../models/post.model.js';
 
 import { NotFoundError } from '../errors/not.found.error.js';
 import { BadRequesError } from './../errors/bad.request.error.js';
