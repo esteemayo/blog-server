@@ -76,8 +76,8 @@ export const deleteMe = asyncHandler(async (req, res, next) => {
 
   await User.findByIdAndUpdate(userId, { $set: { isActive: false } });
 
-  await Post.deleteMany({ author: userId });
   await Comment.deleteMany({ author: userId });
+  await Post.deleteMany({ author: userId });
   await ReplyComment.deleteMany({ author: userId });
 
   return res.status(StatusCodes.NO_CONTENT).end();
