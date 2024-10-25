@@ -223,6 +223,10 @@ export const deletePost = asyncHandler(async (req, res, next) => {
   return res.status(StatusCodes.NO_CONTENT).end();
 });
 
-export const getPostById = factory.getOneById(Post, 'post', 'author');
-export const getPostBySlug = factory.getOneBySlug(Post, 'post', 'author');
+export const getPostById = factory.getOneById(Post, 'post', 'author comments');
+export const getPostBySlug = factory.getOneBySlug(
+  Post,
+  'post',
+  'author comments',
+);
 export const createPost = factory.createOne(Post);
