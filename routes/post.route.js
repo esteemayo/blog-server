@@ -9,6 +9,8 @@ const router = express.Router();
 
 router.use('/:postId/comments', commentRoute);
 
+router.get('/my-posts', authMiddleware.protect, postController.getMyPosts);
+
 router.get('/trend', postController.getTrendingPosts);
 
 router.get('/related-posts', postController.getRelatedPosts);
