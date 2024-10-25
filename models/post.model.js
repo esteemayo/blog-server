@@ -56,6 +56,12 @@ const postSchema = new Schema(
 postSchema.index({ title: 1 });
 postSchema.index({ slug: -1 });
 
+postSchema.virtual('comments', {
+  ref: 'Comment',
+  localField: '_id',
+  foreignField: 'post',
+});
+
 postSchema.pre('save', async function (next) {
   if (!this.isModified('title')) return next();
 
