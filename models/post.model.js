@@ -50,7 +50,11 @@ const postSchema = new Schema(
       type: String,
     },
   },
-  { timestamps: true },
+  {
+    timestamps: true,
+    toJSON: { virtuals: true },
+    toObject: { virtuals: true },
+  },
 );
 
 postSchema.index({ title: 1 });
