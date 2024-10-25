@@ -85,6 +85,22 @@ export const getPosts = asyncHandler(async (req, res, next) => {
   });
 });
 
+export const getMyPosts = asyncHandler(async (req, res, next) => {
+  const { id: userId } = req.user;
+
+  const posts = await Post.find({ author: userId });
+
+  if (!posts) {
+    return next(
+      new NotFoundError(
+        `There are no posts associated with the given user ID → ${userId}`,
+      ),
+    );
+  }
+
+  return res.status(StatusCodes.OK).json(posts);
+});
+
 export const getTrendingPosts = asyncHandler(async (req, res, next) => {
   const posts = await Post.find().sort('-views');
 
