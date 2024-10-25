@@ -5,10 +5,10 @@ import path from 'path';
 
 import 'colors';
 
-import Post from '../models/post.model.js';
-import User from '../models/user.model.js';
-import Category from '../models/category.model.js';
 import Comment from '../models/comment.model.js';
+import Post from '../models/post.model.js';
+import Category from '../models/category.model.js';
+import User from '../models/user.model.js';
 import ReplyComment from '../models/reply.comment.model.js';
 
 import connectDB from '../config/db.config.js';
