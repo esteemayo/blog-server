@@ -28,7 +28,7 @@ export const updateComment = asyncHandler(async (req, res, next) => {
   if (!post) {
     return next(
       new NotFoundError(
-        `There is no post found with the given ID → ${post?._id}`,
+        `There is no post found with the given ID → ${comment.post}`,
       ),
     );
   }
@@ -72,7 +72,7 @@ export const deleteComment = asyncHandler(async (req, res, next) => {
   if (!post) {
     return next(
       new NotFoundError(
-        `There is no post found with the given ID → ${post?._id}`,
+        `There is no post found with the given ID → ${comment.post}`,
       ),
     );
   }
