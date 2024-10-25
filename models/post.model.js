@@ -53,7 +53,8 @@ const postSchema = new Schema(
   { timestamps: true },
 );
 
-postSchema.index({ title: 1, slug: -1 });
+postSchema.index({ title: 1 });
+postSchema.index({ slug: -1 });
 
 postSchema.pre('save', async function (next) {
   if (!this.isModified('title')) return next();
