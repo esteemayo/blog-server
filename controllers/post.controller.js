@@ -189,17 +189,33 @@ export const likePost = asyncHandler(async (req, res, next) => {
     );
   }
 
-  post = await Post.findByIdAndUpdate(
-    postId,
-    {
-      $addToSet: { likes: userId },
-      $pull: { dislikes: userId },
-    },
-    {
-      new: true,
-      runValidators: true,
-    },
-  );
+  if (post.dislikes.includes(userId)) {
+    post = await Post.findByIdAndUpdate(
+      postId,
+      {
+        $pull: { dislikes: userId },
+        $inc: { dislikeCount: -1 },
+        $addToSet: { likes: userId },
+        $inc: { likeCount: 1 },
+      },
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
+  } else {
+    post = await Post.findByIdAndUpdate(
+      postId,
+      {
+        $addToSet: { likes: userId },
+        $inc: { likeCount: 1 },
+      },
+      {
+        new: true,
+        runValidators: true,
+      },
+    );
+  }
 
   return res.status(StatusCodes.OK).json(post);
 });
