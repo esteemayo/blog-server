@@ -27,14 +27,14 @@ const postSchema = new Schema(
     likes: {
       type: [String],
     },
-    likesCount: {
+    likeCount: {
       type: Number,
       default: 0,
     },
     dislikes: {
       type: [String],
     },
-    dislikesCount: {
+    dislikeCount: {
       type: Number,
       default: 0,
     },
