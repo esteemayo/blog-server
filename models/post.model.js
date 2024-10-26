@@ -71,6 +71,11 @@ const postSchema = new Schema(
   },
 );
 
+postSchema.index({
+  title: 'text',
+  desc: 'text',
+});
+
 postSchema.index({ title: 1 });
 postSchema.index({ slug: -1 });
 
