@@ -134,7 +134,6 @@ export const searchPosts = asyncHandler(async (req, res, next) => {
   limit = Number(limit) || 20;
 
   const skip = (page - 1) * limit;
-
   const counts = await Post.countDocuments({ $text: { $search: q } });
 
   const numberOfPages = Math.ceil(counts / limit);
