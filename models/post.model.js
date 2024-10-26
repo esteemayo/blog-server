@@ -24,12 +24,18 @@ const postSchema = new Schema(
       type: Boolean,
       default: false,
     },
-    likes: {
-      type: [String],
-    },
-    dislikes: {
-      type: [String],
-    },
+    likes: [
+      {
+        type: Types.ObjectId,
+        ref: 'User',
+      },
+    ],
+    dislikes: [
+      {
+        type: Types.ObjectId,
+        ref: 'User',
+      },
+    ],
     likeCount: {
       type: Number,
       default: 0,
