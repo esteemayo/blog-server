@@ -119,6 +119,14 @@ export const getUserLikedPosts = asyncHandler(async (req, res, next) => {
   return res.status(StatusCodes.OK).json(posts);
 });
 
+export const getUserDisikedPosts = asyncHandler(async (req, res, next) => {
+  const { id: userId } = req.user;
+
+  const posts = await Post.find({ dislikes: userId }).sort('-_id');
+
+  return res.status(StatusCodes.OK).json(posts);
+});
+
 export const updatePost = asyncHandler(async (req, res, next) => {
   const { id: postId } = req.params;
   const { id: userId, role } = req.user;
