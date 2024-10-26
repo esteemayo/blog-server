@@ -130,7 +130,16 @@ export const getUserDisikedPosts = asyncHandler(async (req, res, next) => {
 export const searchPosts = asyncHandler(async (req, res, next) => {
   const { q } = req.query;
 
-  const posts = await Post.find(
+  const page = Number(req.query.page) || 1;
+  const limit = Number(req.query.limit) || 20;
+
+  const skip = (page - 1) * limit;
+
+  const counts = await Post.countDocuments({ $text: { $search: q } });
+
+  const numberOfPages = Math.ceil(counts / limit);
+
+  const query = Post.find(
     {
       $text: {
         $search: q,
@@ -141,13 +150,23 @@ export const searchPosts = asyncHandler(async (req, res, next) => {
         $meta: 'textScore',
       },
     },
-  ).sort({
-    score: {
-      $meta: 'textScore',
-    },
-  });
+  );
 
-  return res.status(StatusCodes.OK).json(posts);
+  const posts = await query
+    .skip(skip)
+    .limit(limit)
+    .sort({
+      score: {
+        $meta: 'textScore',
+      },
+    });
+
+  return res.status(StatusCodes.OK).json({
+    page,
+    counts,
+    numberOfPages,
+    posts,
+  });
 });
 
 export const updatePost = asyncHandler(async (req, res, next) => {
