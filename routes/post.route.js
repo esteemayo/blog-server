@@ -21,6 +21,12 @@ router.get(
   postController.getUserLikedPosts,
 );
 
+router.get(
+  '/disliked-posts',
+  authMiddleware.protect,
+  postController.getUserDisikedPosts,
+);
+
 router.get('/details/:slug', postController.getPostBySlug);
 
 router.patch('/views/:id', postController.updateViews);
