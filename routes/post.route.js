@@ -27,6 +27,8 @@ router.get(
   postController.getUserDisikedPosts,
 );
 
+router.get('/search', postController.searchPosts);
+
 router.get('/details/:slug', postController.getPostBySlug);
 
 router.patch('/views/:id', postController.updateViews);
