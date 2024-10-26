@@ -127,6 +127,29 @@ export const getUserDisikedPosts = asyncHandler(async (req, res, next) => {
   return res.status(StatusCodes.OK).json(posts);
 });
 
+export const searchPosts = asyncHandler(async (req, res, next) => {
+  const { q } = req.query;
+
+  const posts = await Post.find(
+    {
+      $text: {
+        $search: q,
+      },
+    },
+    {
+      score: {
+        $meta: 'textScore',
+      },
+    },
+  ).sort({
+    score: {
+      $meta: 'textScore',
+    },
+  });
+
+  return res.status(StatusCodes.OK).json(posts);
+});
+
 export const updatePost = asyncHandler(async (req, res, next) => {
   const { id: postId } = req.params;
   const { id: userId, role } = req.user;
