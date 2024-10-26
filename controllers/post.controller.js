@@ -128,10 +128,10 @@ export const getUserDisikedPosts = asyncHandler(async (req, res, next) => {
 });
 
 export const searchPosts = asyncHandler(async (req, res, next) => {
-  const { q } = req.query;
+  let { limit, page, q } = req.query;
 
-  const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 20;
+  page = Number(page) || 1;
+  limit = Number(limit) || 20;
 
   const skip = (page - 1) * limit;
 
