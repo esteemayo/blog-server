@@ -106,7 +106,7 @@ export const getRelatedPosts = asyncHandler(async (req, res, next) => {
   const tags = req.query.tags.split(',');
 
   const posts = await Post.find({ tags: { $in: tags } })
-    .limit(4)
+    .limit(20)
     .sort('-createdAt');
 
   return res.status(StatusCodes.OK).json(posts);
