@@ -107,6 +107,25 @@ postSchema.pre('save', async function (next) {
   }
 });
 
+postSchema.statics.getTagsList = async function () {
+  const tags = await this.aggregate([
+    {
+      $unwind: '$tags',
+    },
+    {
+      $group: {
+        _id: '$tags',
+        count: { $sum: 1 },
+      },
+    },
+    {
+      $sort: { count: -1 },
+    },
+  ]);
+
+  return tags;
+};
+
 const Post = mongoose.models.Post || mongoose.model('Post', postSchema);
 
 export default Post;
