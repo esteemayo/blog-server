@@ -29,6 +29,8 @@ router.get(
   postController.getUserDisikedPosts,
 );
 
+router.get('/category', postController.getPostsByCategory);
+
 router.get('/tags', postController.getTags);
 
 router.get('/tags/:tag', postController.getPostsByTag);
