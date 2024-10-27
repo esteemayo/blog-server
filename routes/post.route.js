@@ -29,7 +29,7 @@ router.get(
   postController.getUserDisikedPosts,
 );
 
-router.get('/category', postController.getPostsByCategory);
+router.get('/category/:category', postController.getPostsByCategory);
 
 router.get('/tags', postController.getTags);
 
