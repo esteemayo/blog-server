@@ -127,6 +127,14 @@ export const getUserDisikedPosts = asyncHandler(async (req, res, next) => {
   return res.status(StatusCodes.OK).json(posts);
 });
 
+export const getPostsByCategory = asyncHandler(async (req, res, next) => {
+  const { category } = req.params;
+
+  const posts = await Post.find({ category }).sort('-_id');
+
+  return res.status(StatusCodes.OK).json(posts);
+});
+
 export const getTags = asyncHandler(async (req, res, next) => {
   const tags = await Post.getTagsList();
 
