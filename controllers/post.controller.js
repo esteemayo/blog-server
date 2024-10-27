@@ -12,7 +12,8 @@ import { ForbiddenError } from '../errors/forbidden.error.js';
 
 export const getPosts = asyncHandler(async (req, res, next) => {
   const queryObj = {};
-  const { category, featured, fields, numericFilter, sort, title } = req.query;
+  let { category, featured, fields, limit, numericFilter, page, sort, title } =
+    req.query;
 
   if (category) {
     queryObj.category = category;
@@ -68,8 +69,8 @@ export const getPosts = asyncHandler(async (req, res, next) => {
     query = query.select('-__v');
   }
 
-  const page = Number(req.query.page) || 1;
-  const limit = Number(req.query.limit) || 20;
+  page = Number(page) || 1;
+  limit = Number(limit) || 20;
 
   const skip = (page - 1) * limit;
   const counts = await Post.countDocuments();
