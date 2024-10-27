@@ -133,6 +133,17 @@ export const getTags = asyncHandler(async (req, res, next) => {
   return res.status(StatusCodes.OK).json(tags);
 });
 
+export const getPostsByTag = asyncHandler(async (req, res, next) => {
+  const { tag } = req.params;
+  const tagQuery = tag || { $exists: true };
+
+  const posts = await Post.find({ tags: { $in: [tagQuery] } }).sort(
+    '-createdAt',
+  );
+
+  return res.status(StatusCodes.OK).json(posts);
+});
+
 export const searchPosts = asyncHandler(async (req, res, next) => {
   let { limit, page, q } = req.query;
 
