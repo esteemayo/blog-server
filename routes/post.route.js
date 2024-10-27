@@ -29,6 +29,8 @@ router.get(
 
 router.get('/tags', postController.getTags);
 
+router.get('/tags/:tag', postController.getPostsByTag);
+
 router.get('/search', postController.searchPosts);
 
 router.get('/details/:slug', postController.getPostBySlug);
