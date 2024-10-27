@@ -41,7 +41,7 @@ export const getPosts = asyncHandler(async (req, res, next) => {
       (match) => `-${operatorMap[match]}-`,
     );
 
-    const options = ['views'];
+    const options = ['views', 'likeCount', 'dislikeCount'];
 
     filters = filters.split(',').forEach((el) => {
       const [field, operator, value] = el.split('-');
