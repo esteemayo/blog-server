@@ -128,20 +128,7 @@ export const getUserDisikedPosts = asyncHandler(async (req, res, next) => {
 });
 
 export const getTags = asyncHandler(async (req, res, next) => {
-  const tags = await Post.aggregate([
-    {
-      $unwind: '$tags',
-    },
-    {
-      $group: {
-        _id: '$tags',
-        count: { $sum: 1 },
-      },
-    },
-    {
-      $sort: { count: -1 },
-    },
-  ]);
+  const tags = await Post.getTagsList();
 
   return res.status(StatusCodes.OK).json(tags);
 });
