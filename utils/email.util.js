@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import nodemailer from 'nodemailer';
 
 export const sendEmail = async (options) => {
