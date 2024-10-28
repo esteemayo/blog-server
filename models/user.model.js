@@ -3,7 +3,7 @@ import crypto from 'crypto';
 import mongoose from 'mongoose';
 import bcrypt from 'bcryptjs';
 
-const { Schema } = mongoose;
+const { Types, Schema } = mongoose;
 
 const userSchema = new Schema(
   {
@@ -90,6 +90,10 @@ const userSchema = new Schema(
     isActive: {
       type: Boolean,
       default: true,
+    },
+    bookmarks: {
+      type: Types.ObjectId,
+      ref: 'Post',
     },
     passwordChangedAt: Date,
     passwordResetToken: String,
