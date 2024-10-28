@@ -102,6 +102,12 @@ export const getTrendingPosts = asyncHandler(async (req, res, next) => {
   return res.status(StatusCodes.OK).json(posts);
 });
 
+export const getFeaturedPosts = asyncHandler(async (req, res, next) => {
+  const posts = await Post.getFeaturedPosts();
+
+  return res.status(StatusCodes.OK).json(posts);
+});
+
 export const getRelatedPosts = asyncHandler(async (req, res, next) => {
   const tags = req.query.tags.split(',');
 
