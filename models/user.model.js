@@ -136,6 +136,36 @@ userSchema.methods.changedPasswordResetToken = function () {
   return resetToken;
 };
 
+userSchema.statics.getUserStats = async function () {
+  const now = new Date();
+  const lastYear = new Date(now.setFullYear(now.getFullYear() - 1));
+  const prevYear = new Date(now.setFullYear(lastYear.getFullYear() - 1));
+
+  const stats = await this.aggregate([
+    {
+      $match: {
+        createdAt: { $gte: prevYear },
+      },
+    },
+    {
+      $project: {
+        month: { $month: '$createdAt' },
+      },
+    },
+    {
+      $group: {
+        _id: '$month',
+        total: { $sum: 1 },
+      },
+    },
+    {
+      $sort: { _id: 1 },
+    },
+  ]);
+
+  return stats;
+};
+
 const User = mongoose.models.User || mongoose.model('User', userSchema);
 
 export default User;
