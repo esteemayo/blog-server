@@ -41,6 +41,15 @@ const userSchema = new Schema(
       type: String,
       required: [true, 'Please provide your password'],
       minLength: [8, 'Passwords cannot be less than 8 characters long'],
+      validate: {
+        validator: function (val) {
+          const passwordRegex =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+          return passwordRegex.test(val);
+        },
+        message:
+          'Password must contain at least one lowercase letter, one uppercase letter, one number, and one special character, and at least 8 characters long',
+      },
       select: false,
     },
     passwordConfirm: {
