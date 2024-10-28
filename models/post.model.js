@@ -126,6 +126,20 @@ postSchema.statics.getTagsList = async function () {
   return tags;
 };
 
+postSchema.statics.getFeaturedPosts = async function () {
+  const posts = await this.aggregate([
+    {
+      $match: {
+        featured: true,
+        views: { $gte: 100 },
+      },
+    },
+    {
+      $sample: { size: 3 },
+    },
+  ]);
+};
+
 const Post = mongoose.models.Post || mongoose.model('Post', postSchema);
 
 export default Post;
