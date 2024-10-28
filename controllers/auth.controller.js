@@ -24,18 +24,22 @@ export const register = asyncHandler(async (req, res, next) => {
 });
 
 export const login = asyncHandler(async (req, res, next) => {
-  const { email, password } = req.body;
+  const { identifier, password } = req.body;
 
-  if (!email || !password) {
-    return next(new BadRequesError('Please provide email and password'));
+  if (!identifier || !password) {
+    return next(
+      new BadRequesError('Please provide username/email and password'),
+    );
   }
 
-  const user = await User.findOne({ email }).select('+password');
+  const user = await User.findOne({
+    $or: [{ username: identifier }, { email: identifier }],
+  }).select('+password');
 
   if (!user || !(await user.comparePassword(password))) {
     return next(
       new BadRequesError(
-        `That email and password combination didn't work. Try again.`,
+        `That username/email and password combination didn't work. Try again.`,
       ),
     );
   }
