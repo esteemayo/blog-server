@@ -53,6 +53,7 @@ export const updateMe = asyncHandler(async (req, res, next) => {
 
   const filterBody = _.pick(req.body, [
     'name',
+    'username',
     'email',
     'phone',
     'bio',
