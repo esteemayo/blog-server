@@ -25,6 +25,12 @@ export const getUsers = asyncHandler(async (req, res, next) => {
   return res.status(StatusCodes.OK).json(users);
 });
 
+export const getUserStats = asyncHandler(async (req, res, next) => {
+  const stats = await User.getUserStats();
+
+  return res.status(StatusCodes.OK).json(stats);
+});
+
 export const updateMe = asyncHandler(async (req, res, next) => {
   const { id: userId } = req.user;
   const { password, passwordConfirm } = req.body;
