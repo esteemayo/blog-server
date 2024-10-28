@@ -17,9 +17,9 @@ import 'colors';
 import commentRoute from './routes/comment.route.js';
 import authRoute from './routes/auth.route.js';
 import categoryRoute from './routes/category.route.js';
-import userRoute from './routes/users.route.js';
-import replyCommentRoute from './routes/reply.comment.route.js';
 import postRoute from './routes/post.route.js';
+import replyCommentRoute from './routes/reply.comment.route.js';
+import userRoute from './routes/users.route.js';
 
 import { NotFoundError } from './errors/not.found.error.js';
 import errorHandler from './middlewares/error.handler.middleware.js';
