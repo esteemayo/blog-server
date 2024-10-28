@@ -6,10 +6,11 @@ import asyncHandler from 'express-async-handler';
 
 import Post from '../models/post.model.js';
 import User from '../models/user.model.js';
-import * as factory from './handler.factory.controller.js';
 
 import { NotFoundError } from '../errors/not.found.error.js';
 import { ForbiddenError } from '../errors/forbidden.error.js';
+
+import * as factory from './handler.factory.controller.js';
 
 export const getPosts = asyncHandler(async (req, res, next) => {
   const queryObj = {};
