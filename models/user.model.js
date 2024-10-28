@@ -19,7 +19,6 @@ const userSchema = new Schema(
       required: [true, 'Please provide your username'],
       unique: true,
       trim: true,
-      match: [/^[a-zA-Z0-9_]+$/, 'Username cannot contain special characters'],
       validate: {
         validator: function (val) {
           return /^[a-zA-Z0-9_]+$/.test(val);
