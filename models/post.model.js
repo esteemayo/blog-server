@@ -138,6 +138,8 @@ postSchema.statics.getFeaturedPosts = async function () {
       $sample: { size: 3 },
     },
   ]);
+
+  return posts;
 };
 
 const Post = mongoose.models.Post || mongoose.model('Post', postSchema);
