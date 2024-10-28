@@ -5,6 +5,7 @@ import slugify from 'slugify';
 import asyncHandler from 'express-async-handler';
 
 import Post from '../models/post.model.js';
+import User from '../models/user.model.js';
 import * as factory from './handler.factory.controller.js';
 
 import { NotFoundError } from '../errors/not.found.error.js';
@@ -233,6 +234,31 @@ export const updatePost = asyncHandler(async (req, res, next) => {
   );
 
   return res.status(StatusCodes.OK).json(updatedPost);
+});
+
+export const bookmarkPost = asyncHandler(async (req, res, next) => {
+  const { id: userId } = req.user;
+  const { id: postId } = req.params;
+
+  const user = await User.findById(userId);
+
+  if (!user) {
+    return next(
+      new NotFoundError(`There is no user found with the given ID → ${userId}`),
+    );
+  }
+
+  if (user.bookmarks.include(postId)) {
+    user.bookmarks.pull(postId);
+    await user.save();
+
+    return res.status(StatusCodes.OK).json('Post removed from bookmarks');
+  }
+
+  user.bookmarks.push(postId);
+  await user.save();
+
+  return res.status(StatusCodes.OK).json('Post bookmarked successfully');
 });
 
 export const updateViews = asyncHandler(async (req, res, next) => {
