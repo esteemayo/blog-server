@@ -11,6 +11,12 @@ router.use(authMiddleware.protect);
 
 router.get('/me', userController.getMe, userController.getUser);
 
+router.get(
+  '/stats',
+  authMiddleware.restrictTo('admin'),
+  userController.getUserStats,
+);
+
 router.patch('/update-me', userController.updateMe);
 
 router.delete('/delete-me', userController.deleteMe);
