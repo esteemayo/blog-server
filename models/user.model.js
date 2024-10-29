@@ -91,10 +91,12 @@ const userSchema = new Schema(
       type: Boolean,
       default: true,
     },
-    bookmarks: {
-      type: Types.ObjectId,
-      ref: 'Post',
-    },
+    bookmarks: [
+      {
+        type: Types.ObjectId,
+        ref: 'Post',
+      },
+    ],
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
