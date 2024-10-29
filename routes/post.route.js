@@ -20,6 +20,12 @@ router.get('/featured', postController.getFeaturedPosts);
 router.get('/related-posts', postController.getRelatedPosts);
 
 router.get(
+  '/bookmarks',
+  authMiddleware.protect,
+  postController.getBookmarkedPosts,
+);
+
+router.get(
   '/liked-posts',
   authMiddleware.protect,
   postController.getUserLikedPosts,
