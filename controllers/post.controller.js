@@ -251,13 +251,13 @@ export const bookmarkPost = asyncHandler(async (req, res, next) => {
 
   if (user.bookmarks.includes(postId)) {
     user.bookmarks.pull(postId);
-    await user.save();
+    await user.save({ validateBeforeSave: false });
 
     return res.status(StatusCodes.OK).json('Post removed from bookmarks');
   }
 
   user.bookmarks.push(postId);
-  await user.save();
+  await user.save({ validateBeforeSave: false });
 
   return res.status(StatusCodes.OK).json('Post bookmarked successfully');
 });
