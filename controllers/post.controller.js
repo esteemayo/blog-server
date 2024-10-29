@@ -249,7 +249,7 @@ export const bookmarkPost = asyncHandler(async (req, res, next) => {
     );
   }
 
-  if (user.bookmarks.include(postId)) {
+  if (user.bookmarks.includes(postId)) {
     user.bookmarks.pull(postId);
     await user.save();
 
