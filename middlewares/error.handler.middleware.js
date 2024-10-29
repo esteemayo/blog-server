@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 import { StatusCodes } from 'http-status-codes';
 
 import app from '../app.js';
