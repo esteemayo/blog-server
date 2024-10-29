@@ -48,7 +48,7 @@ router.get('/search', postController.searchPosts);
 router.get('/details/:slug', postController.getPostBySlug);
 
 router.patch(
-  '/bookmark/:id',
+  '/bookmarks/:id',
   authMiddleware.protect,
   authMiddleware.restrictTo('user'),
   postController.bookmarkPost,
