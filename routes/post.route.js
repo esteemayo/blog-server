@@ -37,6 +37,8 @@ router.get(
   postController.getUserDisikedPosts,
 );
 
+router.get('/comments/users/:id', postController.getPostComentUsers);
+
 router.get('/category/:category', postController.getPostsByCategory);
 
 router.get('/tags', postController.getTags);
