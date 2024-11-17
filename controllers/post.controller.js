@@ -6,6 +6,7 @@ import asyncHandler from 'express-async-handler';
 
 import Post from '../models/post.model.js';
 import User from '../models/user.model.js';
+import Comment from '../models/comment.model.js';
 
 import { NotFoundError } from '../errors/not.found.error.js';
 import { ForbiddenError } from '../errors/forbidden.error.js';
@@ -148,6 +149,15 @@ export const getUserDisikedPosts = asyncHandler(async (req, res, next) => {
   const posts = await Post.find({ dislikes: userId }).sort('-_id');
 
   return res.status(StatusCodes.OK).json(posts);
+});
+
+export const getPostComentUsers = asyncHandler(async (req, res, next) => {
+  const { id: postId } = req.params;
+
+  const comments = await Comment.find({ post: postId });
+  const users = comments.map((comment) => comment.author);
+
+  return res.status(StatusCodes.OK).json(users);
 });
 
 export const getPostsByCategory = asyncHandler(async (req, res, next) => {
