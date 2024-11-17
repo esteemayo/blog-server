@@ -75,6 +75,12 @@ const userSchema = new Schema(
     image: {
       type: String,
     },
+    bookmarks: [
+      {
+        type: Types.ObjectId,
+        ref: 'Post',
+      },
+    ],
     fromGoogle: {
       type: Boolean,
       default: false,
@@ -91,12 +97,6 @@ const userSchema = new Schema(
       type: Boolean,
       default: true,
     },
-    bookmarks: [
-      {
-        type: Types.ObjectId,
-        ref: 'Post',
-      },
-    ],
     passwordChangedAt: Date,
     passwordResetToken: String,
     passwordResetExpires: Date,
