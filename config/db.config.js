@@ -11,11 +11,11 @@ const { DATABASE, DATABASE_PASSWORD, DATABASE_LOCAL } = process.env;
 const dbLocal = DATABASE_LOCAL;
 const mongoURI = DATABASE.replace('<PASSWORD>', DATABASE_PASSWORD);
 
-const db = devEnv ? dbLocal : mongoURI;
+const connectionStr = devEnv ? dbLocal : mongoURI;
 
 const connectDB = async () => {
   try {
-    const conn = await mongoose.connect(db);
+    const conn = await mongoose.connect(connectionStr);
     console.log(`Connected to Database → ${conn.connection.port}`.gray.bold);
   } catch (err) {
     throw err;
