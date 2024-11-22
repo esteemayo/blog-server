@@ -30,4 +30,12 @@ db.on('disconnected', () => {
   console.log('Disconnected from Database'.strikethrough);
 });
 
+db.on('error', (err) => {
+  console.log(err);
+});
+
+db.once('open', () => {
+  console.log('Connected to MongoDB'.random.bold);
+});
+
 export default connectDB;
